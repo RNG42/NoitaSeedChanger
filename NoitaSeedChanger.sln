@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoitaSeedChanger", "NoitaSeedChanger\NoitaSeedChanger.csproj", "{127F8CE8-5BE4-4AF3-9E71-23E61AE74657}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{127F8CE8-5BE4-4AF3-9E71-23E61AE74657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{127F8CE8-5BE4-4AF3-9E71-23E61AE74657}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{127F8CE8-5BE4-4AF3-9E71-23E61AE74657}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{127F8CE8-5BE4-4AF3-9E71-23E61AE74657}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2103D7B3-6CA1-4472-B46F-05F87CE18D61}
+	EndGlobalSection
+EndGlobal
