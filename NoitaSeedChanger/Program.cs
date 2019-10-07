@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace NoitaSeedChanger
 {
@@ -7,16 +8,38 @@ namespace NoitaSeedChanger
     {
         private static string gameName = "noita";
         private static Process game = null;
-
-        private static readonly int address = 0x177712C;
-        private static readonly int address2 = 0x1801640;
-
+        private static bool beta = false;
         private static int seed = 0;
-
         private static bool restart = false;
+        private static IniFile settings;
+        private static string settingsFile = AppDomain.CurrentDomain.BaseDirectory + "settings.ini";
+
+        // final
+        private static readonly int address = 0x177712C;
+        private static readonly int address2 = 0x1777AC8;
+        // beta
+        private static readonly int address3 = 0x141A75C;
+        private static readonly int address4 = 0x14A5CA0;
 
         static void Main(string[] args)
         {
+            // hooked CancelKeyPress to RestartApp function
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(RestartApp);
+
+            if (!File.Exists(settingsFile)) // check if settings.ini exists
+            {
+                File.Create(settingsFile).Close();
+
+                settings = new IniFile(settingsFile);
+                settings.Write("beta", "false", "Settings");
+                beta = Convert.ToBoolean(settings.Read("beta", "Settings"));
+            }
+            else // Load settings
+            {
+                settings = new IniFile(settingsFile);
+                beta = Convert.ToBoolean(settings.Read("beta", "Settings"));
+            }
+
             DrawBanner();
 
             Console.Write("Enter Seed> ");
@@ -29,9 +52,7 @@ namespace NoitaSeedChanger
                 seed = 1;
             }
 
-            Console.WriteLine("");
-
-            Restart:
+        Restart:
 
             if (restart)
             {
@@ -50,30 +71,40 @@ namespace NoitaSeedChanger
                 {
                     game = Process.GetProcessesByName(gameName)[0];
                     Console.WriteLine("noita.exe is running");
-                    Console.WriteLine("");
+                    Console.Write(Environment.NewLine);
                 }
             }
 
-            // injects seed to given memory address
+            // writes seed to given memory address for the correct version
             if (game.WaitForInputIdle())
             {
-                while (Read(game.Handle, address) <= 0 && Read(game.Handle, address2) <= 0)
+                if (!beta)
                 {
-                    System.Threading.Thread.Sleep(250);
-
-                    if (Read(game.Handle, address) > 0)
+                    while (Read(game.Handle, address) != seed  && Read(game.Handle, address2) != seed)
                     {
-                        Write(game.Handle, address, seed);
+                        if (Read(game.Handle, address) > 0 || Read(game.Handle, address2) > 0)
+                        {
+                            Write(game.Handle, address, seed);
+                            Write(game.Handle, address2, seed);
+                        }
                     }
-                    if (Read(game.Handle, address2) > 0)
+                }
+                else if (beta)
+                {
+                    while (Read(game.Handle, address3) != seed && Read(game.Handle, address4) != seed)
                     {
-                        Write(game.Handle, address2, seed);
+                        if (Read(game.Handle, address3) > 0 || Read(game.Handle, address4) > 0)
+                        {
+                            Write(game.Handle, address3, seed);
+                            Write(game.Handle, address4, seed);
+                        }
+
                     }
                 }
             }
 
             Console.WriteLine("Seed changed to: " + seed);
-            Console.WriteLine("");
+            Console.Write(Environment.NewLine);
             Console.WriteLine("Waiting for restart.");
 
             game.WaitForExit();
@@ -83,6 +114,12 @@ namespace NoitaSeedChanger
 
             restart = true;
             goto Restart;
+        }
+
+        public static void RestartApp(object sender, EventArgs e)
+        {
+            Process.Start(AppDomain.CurrentDomain.BaseDirectory + "NoitaSeedChanger.exe");
+            Process.GetCurrentProcess().Kill();
         }
 
         // reads memory address
@@ -149,8 +186,8 @@ namespace NoitaSeedChanger
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine(" by RNG42");
-            Console.WriteLine("");
-            Console.WriteLine("");
+            Console.Write(Environment.NewLine);
+            Console.Write(Environment.NewLine);
         }
     }
 }
