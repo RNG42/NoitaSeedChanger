@@ -185,7 +185,6 @@ namespace NoitaSeedChanger
             }
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine(" by RNG42");
             Console.Write(Environment.NewLine);
             Console.Write(Environment.NewLine);
         }
