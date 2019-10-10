@@ -17,10 +17,10 @@ namespace NoitaSeedChanger
 
         // final
         private static readonly int address = 0x177712C;
-        private static readonly int address2 = 0x1777AC8;
+        private static readonly int address2 = 0x1801640;
         // beta
-        private static readonly int address3 = 0x141A75C;
-        private static readonly int address4 = 0x14A5CA0;
+        private static readonly int address3 = 0x1421774;
+        private static readonly int address4 = 0x14ACCC8;
 
         static void Main(string[] args)
         {
