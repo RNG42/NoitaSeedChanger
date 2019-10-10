@@ -44,10 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Imports.cs" />
-    <Compile Include="IniFile.cs" />
+    <Compile Include="Banner.cs" />
+    <Compile Include="Ini.cs" />
+    <Compile Include="Memory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seedlist.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

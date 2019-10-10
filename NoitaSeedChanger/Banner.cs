@@ -1,6 +1,6 @@
 ﻿using System;
 
-internal class Banner
+class Banner
 {
     public static void Draw()
     {

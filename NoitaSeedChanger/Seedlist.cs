@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-internal class Seedlist
+class Seedlist
 {
     private static readonly List<string> seedList = new List<string>();
     private static int selection;
