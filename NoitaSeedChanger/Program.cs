@@ -17,10 +17,12 @@ namespace NoitaSeedChanger
 
         // final
         private static readonly int address = 0x177712C;
-        private static readonly int address2 = 0x1801640;
+        private static readonly int address2 = 0x17777AC8;
+        private static readonly int address3 = 0x1801640;
         // beta
-        private static readonly int address3 = 0x1421774;
-        private static readonly int address4 = 0x14ACCC8;
+        private static readonly int address4 = 0x1421774;
+        private static readonly int address5 = 0x14ACCC8;
+        private static readonly int address6 = 0x1421720;
 
         static void Main(string[] args)
         {
@@ -99,17 +101,19 @@ namespace NoitaSeedChanger
                         {
                             Memory.Write(game.Handle, address, seed);
                             Memory.Write(game.Handle, address2, seed);
+                            Memory.Write(game.Handle, address3, seed);
                         }
                     }
                 }
                 else if (beta)
                 {
-                    while (Memory.Read(game.Handle, address3) != seed && Memory.Read(game.Handle, address4) != seed)
+                    while (Memory.Read(game.Handle, address4) != seed && Memory.Read(game.Handle, address5) != seed)
                     {
-                        if (Memory.Read(game.Handle, address3) > 0 || Memory.Read(game.Handle, address4) > 0)
+                        if (Memory.Read(game.Handle, address4) > 0 || Memory.Read(game.Handle, address5) > 0)
                         {
-                            Memory.Write(game.Handle, address3, seed);
                             Memory.Write(game.Handle, address4, seed);
+                            Memory.Write(game.Handle, address5, seed);
+                            Memory.Write(game.Handle, address6, seed);
                         }
 
                     }
