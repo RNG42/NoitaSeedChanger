@@ -8,21 +8,20 @@ namespace NoitaSeedChanger
     {
         private static string gameName = "noita";
         private static Process game = null;
-        private static bool beta = false;
-        public static uint seed = 0;        // 1 to 4294967295
-        private static bool restart = false;
         private static Ini settings;
         private static readonly string settingsFile = AppDomain.CurrentDomain.BaseDirectory + "settings.ini";
         private static readonly string listFile = AppDomain.CurrentDomain.BaseDirectory + "seeds.txt";
 
-        // final
-        private static readonly int address = 0x177712C;
-        private static readonly int address2 = 0x17777AC8;
-        private static readonly int address3 = 0x1801640;
-        // beta
-        private static readonly int address4 = 0x1421774;
-        private static readonly int address5 = 0x14ACCC8;
-        private static readonly int address6 = 0x1421720;
+        private static int mode = 0;
+        public static uint seed = 0;        // 1 to 4294967295
+        private static bool restart = false;
+
+        private static readonly int[] pointer = new int[] { 
+            0x14136D4, 0x1420798, 0x14ABCF0, // release branch
+            0x1420798, 0x14ABCF0, 0x1420788, // beta branch
+            0x1429880, 0x14B4DE0, 0x14296C0, // mod branch
+            0x177712C, 0x1801640, 0x1777AC8  // old version
+        };
 
         static void Main(string[] args)
         {
@@ -35,12 +34,12 @@ namespace NoitaSeedChanger
 
                 settings = new Ini(settingsFile);
                 settings.Write("beta", "false", "Settings");
-                beta = Convert.ToBoolean(settings.Read("beta", "Settings"));
+                mode = Convert.ToInt32(settings.Read("mode", "Settings"));
             }
             else // Load settings
             {
                 settings = new Ini(settingsFile);
-                beta = Convert.ToBoolean(settings.Read("beta", "Settings"));
+                mode = Convert.ToInt32(settings.Read("mode", "Settings"));
             }
 
             if (!File.Exists(listFile)) // check if seedlist.txt exists
@@ -93,30 +92,22 @@ namespace NoitaSeedChanger
             // writes seed to given memory address for the correct version
             if (game.WaitForInputIdle())
             {
-                if (!beta)
+                switch (mode)
                 {
-                    while (Memory.Read(game.Handle, address) != seed && Memory.Read(game.Handle, address2) != seed)
-                    {
-                        if (Memory.Read(game.Handle, address) > 0 || Memory.Read(game.Handle, address2) > 0)
-                        {
-                            Memory.Write(game.Handle, address, seed);
-                            Memory.Write(game.Handle, address2, seed);
-                            Memory.Write(game.Handle, address3, seed);
-                        }
-                    }
-                }
-                else if (beta)
-                {
-                    while (Memory.Read(game.Handle, address4) != seed && Memory.Read(game.Handle, address5) != seed)
-                    {
-                        if (Memory.Read(game.Handle, address4) > 0 || Memory.Read(game.Handle, address5) > 0)
-                        {
-                            Memory.Write(game.Handle, address4, seed);
-                            Memory.Write(game.Handle, address5, seed);
-                            Memory.Write(game.Handle, address6, seed);
-                        }
-
-                    }
+                    case 0: // release
+                        ChangeSeed(pointer[0], pointer[1], pointer[2]);
+                        break;
+                    case 1: // beta
+                        ChangeSeed(pointer[3], pointer[4], pointer[5]);
+                        break;
+                    case 2: // mod
+                        ChangeSeed(pointer[6], pointer[7], pointer[8]);
+                        break;
+                    case 3: // old
+                        ChangeSeed(pointer[9], pointer[10], pointer[11]);
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -135,6 +126,19 @@ namespace NoitaSeedChanger
 
             restart = true;
             goto Restart;
+        }
+
+        private static void ChangeSeed(int addr1, int addr2, int addr3)
+        {
+            while (Memory.Read(game.Handle, addr1) != seed && Memory.Read(game.Handle, addr2) != seed)
+            {
+                if (Memory.Read(game.Handle, addr1) > 0 || Memory.Read(game.Handle, addr2) > 0)
+                {
+                    Memory.Write(game.Handle, addr1, seed);
+                    Memory.Write(game.Handle, addr2, seed);
+                    Memory.Write(game.Handle, addr3, seed);
+                }
+            }
         }
 
         public static void RestartApp(object sender, EventArgs e)
