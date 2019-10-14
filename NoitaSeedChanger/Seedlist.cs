@@ -7,49 +7,68 @@ using System.Text;
 class Seedlist
 {
     private static readonly List<string> seedList = new List<string>();
-    private static int selection;
+    private static int selection = 1;
 
     public static bool GetList(string path)
     {
         int lineCount = 1;
-        string[] array = File.ReadAllLines(path, Encoding.UTF8);
-        for (int i = 0; i < array.Length; i++)
+        string[] lines = File.ReadAllLines(path, Encoding.UTF8);
+
+        foreach (string line in lines)
         {
-            string[] splitString = array[i].Split(char.Parse(":"));
-            seedList.Add(splitString[0]);
-            splitString[0] = StringSpaces(splitString[0], 15);
-            Console.WriteLine("{0}. " + splitString[0] + " : " + splitString[1], lineCount);
-            lineCount++;
+
+            string[] splitString = line.Split(char.Parse(":"));
+            if (uint.TryParse(splitString[0], out uint n))
+            {
+                seedList.Add(n.ToString());
+                splitString[0] = Helper.StringSpaces(splitString[0], 16);
+                Console.WriteLine(" [{0}] " + splitString[0] + " : " + splitString[1], lineCount);
+                lineCount++;
+            }
+            else
+            {
+                if (splitString[0].Length > 0)
+                {
+                    InvalidSeed(splitString[0]);
+                }
+            }
         }
-        Console.WriteLine("{0}. ENTER NEW SEED", lineCount);
+
+        Console.WriteLine(" [{0}] ENTER NEW SEED", lineCount);
         Console.Write(Environment.NewLine);
         Console.ForegroundColor = ConsoleColor.DarkCyan;
         Console.Write("Select Seed> ");
         Console.ForegroundColor = ConsoleColor.White;
         int.TryParse(Console.ReadLine(), out selection);
         Console.ForegroundColor = ConsoleColor.DarkCyan;
-        Console.Write(Environment.NewLine);
+
+
         if (selection <= lineCount - 1 && selection != 0)
         {
-            Program.seed = uint.Parse(seedList[selection - 1]);
+            if (!uint.TryParse(seedList[selection - 1], out Program.seed))
+            {
+                InvalidSeed(seedList[selection - 1]);
+            }
+            else
+            {
+                Helper.WriteLine("Selected: " + seedList[selection - 1]);
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write(Environment.NewLine);
+            }
             return true;
         }
-        _ = selection;
         return false;
     }
-
-    private static string StringSpaces(string str, int length)
+    private static void InvalidSeed(string seed)
     {
-        if (str.Length < length)
-        {
-            StringBuilder builder = new StringBuilder();
-            builder.Append(str);
-            for (int i = 0; i < length - str.Length; i++)
-            {
-                builder.Append(" ");
-            }
-            str = builder.ToString();
-        }
-        return str;
+        Console.Write(Environment.NewLine);
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.Write("Seed ");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write(seed);
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine(" Invalid!");
+        Helper.WriteLine("Possible seed range: 1 to 4294967295");
+        Console.Write(Environment.NewLine);
     }
 }
