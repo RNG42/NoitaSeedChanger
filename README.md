@@ -8,5 +8,6 @@ Changes:
 * Fixed memory read/write function to use 'uint' instead of 'int' to be able to use the full range of possible seeds.
 * Fixed a bug where invalid seeds caused a crash
 
-Compatible with the latest beta Build (Oct 16 2019)
+**Compatible with the latest beta Build (Oct 16 2019)
 
+Only supports **STEAM** releases. GoG or itch.io releases are NOT supported currently.
