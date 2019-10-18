@@ -12,16 +12,14 @@ namespace NoitaSeedChanger
         private static readonly string settingsFile = AppDomain.CurrentDomain.BaseDirectory + "settings.ini";
         private static readonly string listFile = AppDomain.CurrentDomain.BaseDirectory + "seeds.txt";
 
-        private static int version = 0;
+        private static int release = 0;
         public static uint seed = 0;        // 0 to 4294967294 +1
         private static bool restart = false;
 
         private static readonly int[] pointer = new int[] { 
             0x14136D4, 0x1420798, 0x14ABCF0, // release branch
-            0x1420798, 0x14ABCF0, 0x1420788, // beta branch
-            0x142B898, 0x14B6E20, 0x142B6C8, // mod branch
+            0x142F24C, 0x14BCEA8, 0x1431900, // beta branch
             0x177712C, 0x1801640, 0x1777AC8, // old version
-            0x1423ACC, 0x14AF030, 0x1421208  // GoG version
         };
 
         static void Main(string[] args)
@@ -34,13 +32,13 @@ namespace NoitaSeedChanger
                 File.Create(settingsFile).Close();
 
                 settings = new Ini(settingsFile);
-                settings.Write("version", "0", "Settings");
-                version = Convert.ToInt32(settings.Read("version", "Settings"));
+                settings.Write("release", "0", "Settings");
+                release = Convert.ToInt32(settings.Read("release", "Settings"));
             }
             else // Load settings
             {
                 settings = new Ini(settingsFile);
-                version = Convert.ToInt32(settings.Read("version", "Settings"));
+                release = Convert.ToInt32(settings.Read("release", "Settings"));
             }
 
             if (!File.Exists(listFile)) // check if seedlist.txt exists
@@ -64,6 +62,9 @@ namespace NoitaSeedChanger
 
             if (seed <= 0)  // game stucks on title screen if the seed is less or equal zero
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Seed invalid! Make sure it is in the range of 1 to 4294967295.");
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
                 seed = Helper.RandomSeed();
                 Helper.WriteLine("New randomly generated seed is " + seed);
                 Console.Write(Environment.NewLine);
@@ -95,7 +96,7 @@ namespace NoitaSeedChanger
             // writes seed to given memory address for the correct version
             if (game.WaitForInputIdle())
             {
-                switch (version)
+                switch (release)
                 {
                     case 0: // release
                         ChangeSeed(pointer[0], pointer[1], pointer[2]);
@@ -103,14 +104,8 @@ namespace NoitaSeedChanger
                     case 1: // beta
                         ChangeSeed(pointer[3], pointer[4], pointer[5]);
                         break;
-                    case 2: // mod
+                    case 2: // old
                         ChangeSeed(pointer[6], pointer[7], pointer[8]);
-                        break;
-                    case 3: // old
-                        ChangeSeed(pointer[9], pointer[10], pointer[11]);
-                        break;
-                    case 4: // GoG
-                        ChangeSeed(pointer[12], pointer[13], pointer[14]);
                         break;
                     default:
                         break;
