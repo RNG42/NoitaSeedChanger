@@ -42,7 +42,6 @@ class Seedlist
         int.TryParse(Console.ReadLine(), out selection);
         Console.ForegroundColor = ConsoleColor.DarkCyan;
 
-
         if (selection <= lineCount - 1 && selection != 0)
         {
             if (!uint.TryParse(seedList[selection - 1], out Program.seed))
@@ -67,8 +66,7 @@ class Seedlist
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write(seed);
         Console.ForegroundColor = ConsoleColor.DarkRed;
-        Console.WriteLine(" Invalid!");
-        Helper.WriteLine("Possible seed range: 1 to 4294967295");
+        Console.WriteLine(" Invalid! Make sure it is in the range of 1 to 4294967295.");
         Console.Write(Environment.NewLine);
     }
 }
