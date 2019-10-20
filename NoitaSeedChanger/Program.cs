@@ -7,13 +7,11 @@ namespace NoitaSeedChanger
     class Program
     {
         private static string gameName = "noita";
-        private static Process game = null;
-        private static Ini settings;
-        private static readonly string settingsFile = AppDomain.CurrentDomain.BaseDirectory + "settings.ini";
+        public static Process game = null;
         private static readonly string listFile = AppDomain.CurrentDomain.BaseDirectory + "seeds.txt";
 
-        private static int release = 0;
-        public static uint seed = 0;        // 0 to 4294967294 +1
+        public static int release = 0;
+        public static uint seed = 0;        // 1 to 4294967295 
         private static bool restart = false;
 
         private static readonly int[] pointer = new int[] { 
@@ -27,31 +25,16 @@ namespace NoitaSeedChanger
             // hooked Restart function to CancelKeyPress event
             Console.CancelKeyPress += new ConsoleCancelEventHandler(RestartApp);
 
-            if (!File.Exists(settingsFile)) // check if settings.ini exists
-            {
-                File.Create(settingsFile).Close();
-
-                settings = new Ini(settingsFile);
-                settings.Write("release", "0", "Settings");
-                release = Convert.ToInt32(settings.Read("release", "Settings"));
-            }
-            else // Load settings
-            {
-                settings = new Ini(settingsFile);
-                release = Convert.ToInt32(settings.Read("release", "Settings"));
-            }
-
             if (!File.Exists(listFile)) // check if seedlist.txt exists
             {
-                string[] lines = { "1:First Seed" };
+                string[] lines = { "12345678:Test Seed" };
                 File.Create(listFile).Close();
                 File.WriteAllLines(listFile, lines);
             }
 
             Helper.DrawBanner();
 
-            // get seed from list
-            if (!Seedlist.GetList(listFile))
+            if (!Seedlist.GetList(listFile)) // get seed from list
             {
                 Console.Write(Environment.NewLine);
                 Console.Write("Enter Seed> ");
@@ -62,11 +45,9 @@ namespace NoitaSeedChanger
 
             if (seed <= 0)  // game stucks on title screen if the seed is less or equal zero
             {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Seed invalid! Make sure it is in the range of 1 to 4294967295.");
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Helper.Error("Seed invalid! Make sure it's in a range of 1 to 4294967295.");
                 seed = Helper.RandomSeed();
-                Helper.WriteLine("New randomly generated seed is " + seed);
+                Helper.WriteLine("Generated random seed: " + seed);
                 Console.Write(Environment.NewLine);
             }
 
@@ -75,7 +56,6 @@ namespace NoitaSeedChanger
             if (restart)
             {
                 Helper.DrawBanner();
-                Console.ForegroundColor = ConsoleColor.White;
             }
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -92,6 +72,9 @@ namespace NoitaSeedChanger
                     Console.Write(Environment.NewLine);
                 }
             }
+
+            // checks current Noita release and sets 'release' variable
+            Release.Set();
 
             // writes seed to given memory address for the correct version
             if (game.WaitForInputIdle())
@@ -111,19 +94,11 @@ namespace NoitaSeedChanger
                         break;
                 }
             }
-
-            Console.Write("Seed changed to: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(seed);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-
-            Console.Write(Environment.NewLine);
-            Console.WriteLine("Waiting for restart.");
+            Helper.WriteLine("Seed changed to: " + seed);
+            Console.WriteLine("Idle until Noita restarts.");
 
             game.WaitForExit();
             game = null;
-
-            Console.Clear();
 
             restart = true;
             goto Restart;
