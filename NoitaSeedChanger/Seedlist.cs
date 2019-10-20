@@ -12,18 +12,28 @@ class Seedlist
     public static bool GetList(string path)
     {
         int lineCount = 1;
+
         string[] lines = File.ReadAllLines(path, Encoding.UTF8);
 
         foreach (string line in lines)
         {
-
             string[] splitString = line.Split(char.Parse(":"));
             if (uint.TryParse(splitString[0], out uint n))
             {
-                seedList.Add(n.ToString());
-                splitString[0] = Helper.StringSpaces(splitString[0], 16);
-                Console.WriteLine(" [{0}] " + splitString[0] + " : " + splitString[1], lineCount);
-                lineCount++;
+                if (splitString.Length > 1)
+                {
+                    seedList.Add(n.ToString());
+                    splitString[0] = Helper.StringSpaces(splitString[0], 16);
+                    Console.WriteLine(" {0}" + splitString[0] + " : " + splitString[1], "[" + Helper.StringSpaces(lineCount.ToString() + "]", 4));
+                    lineCount++;
+                }
+                else
+                {
+                    seedList.Add(n.ToString());
+                    splitString[0] = Helper.StringSpaces(splitString[0], 16);
+                    Console.WriteLine( " {0}" + splitString[0] + " : ", "[" + Helper.StringSpaces(lineCount.ToString() + "]", 4));
+                    lineCount++;
+                }
             }
             else
             {
@@ -60,13 +70,12 @@ class Seedlist
     }
     private static void InvalidSeed(string seed)
     {
-        Console.Write(Environment.NewLine);
         Console.ForegroundColor = ConsoleColor.DarkRed;
-        Console.Write("Seed ");
+        Console.Write(" Seed ");
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write(seed);
         Console.ForegroundColor = ConsoleColor.DarkRed;
-        Console.WriteLine(" Invalid! Make sure it is in the range of 1 to 4294967295.");
-        Console.Write(Environment.NewLine);
+        Console.WriteLine(" Invalid! Make sure it's in a range of 1 to 4294967295.");
+        Console.ForegroundColor = ConsoleColor.DarkCyan;
     }
 }
