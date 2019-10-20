@@ -8,22 +8,25 @@ namespace NoitaSeedChanger
     {
         public static void DrawBanner()
         {
+            Console.Clear();
             ConsoleColor[] gradient = new ConsoleColor[5]
             {
-            ConsoleColor.Cyan,
-            ConsoleColor.DarkCyan,
-            ConsoleColor.Blue,
-            ConsoleColor.DarkBlue,
-            ConsoleColor.DarkBlue
+                ConsoleColor.Cyan,
+                ConsoleColor.DarkCyan,
+                ConsoleColor.Blue,
+                ConsoleColor.DarkBlue,
+                ConsoleColor.DarkBlue
             };
+
             string[] banner = new string[5]
             {
-            "     _______         __ __              _______                 __      ______ __                                 ",
-            "    |    |  |.-----.|__|  |_.---.-.    |     __|.-----.-----.--|  |    |      |  |--.---.-.-----.-----.-----.----.",
-            "    |       ||  _  ||  |   _|  _  |    |__     ||  -__|  -__|  _  |    |   ---|     |  _  |     |  _  |  -__|   _|",
-            "    |__|____||_____||__|____|___._|    |_______||_____|_____|_____|    |______|__|__|___._|__|__|___  |_____|__|  ",
-            "                                                                                                |_____|           "
+                "     _______         __ __              _______                 __      ______ __                                 ",
+                "    |    |  |.-----.|__|  |_.---.-.    |     __|.-----.-----.--|  |    |      |  |--.---.-.-----.-----.-----.----.",
+                "    |       ||  _  ||  |   _|  _  |    |__     ||  -__|  -__|  _  |    |   ---|     |  _  |     |  _  |  -__|   _|",
+                "    |__|____||_____||__|____|___._|    |_______||_____|_____|_____|    |______|__|__|___._|__|__|___  |_____|__|  ",
+                "                                                                                                |_____|           "
             };
+
             for (int i = 0; i < gradient.Length; i++)
             {
                 Console.ForegroundColor = gradient[i];
@@ -33,7 +36,6 @@ namespace NoitaSeedChanger
             Console.Write(Environment.NewLine);
             Console.Write(Environment.NewLine);
         }
-
         public static string StringSpaces(string str, int length)
         {
             if (str.Length < length)
@@ -48,7 +50,6 @@ namespace NoitaSeedChanger
             }
             return str;
         }
-
         public static void WriteLine(string text)
         {
             if (text.Any(char.IsDigit))
@@ -77,7 +78,13 @@ namespace NoitaSeedChanger
                 Console.WriteLine(text);
             }
         }
-
+        public static void Error(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(text);
+            Console.Write(Environment.NewLine);
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+        }
         public static uint RandomSeed()
         {
             Random r = new Random();
