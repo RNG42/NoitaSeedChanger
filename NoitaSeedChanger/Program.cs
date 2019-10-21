@@ -14,10 +14,14 @@ namespace NoitaSeedChanger
         public static uint seed = 0;        // 1 to 4294967295 
         private static bool restart = false;
 
-        private static readonly int[] pointer = new int[] { 
-            0x14136D4, 0x1420798, 0x14ABCF0, // release branch
-            0x142F24C, 0x14BCEA8, 0x1431900, // beta branch
-            0x177712C, 0x1801640, 0x1777AC8, // old version
+        private static readonly int[] p_Final = new int[] {
+            0x14136D4, 0x1420798, 0x14ABCF0             // final
+        };
+        private static readonly int[] p_Beta = new int[] {
+            0x1427B74, 0x1434BC4, 0x14C0178, 0x1432458  // beta branch
+        };
+        private static readonly int[] p_Old = new int[] {
+            0x177712C, 0x1801640, 0x1777AC8             // old version
         };
 
         static void Main(string[] args)
@@ -81,14 +85,14 @@ namespace NoitaSeedChanger
             {
                 switch (release)
                 {
-                    case 0: // release
-                        ChangeSeed(pointer[0], pointer[1], pointer[2]);
+                    case 0: // final
+                        ChangeSeed(p_Final);
                         break;
                     case 1: // beta
-                        ChangeSeed(pointer[3], pointer[4], pointer[5]);
+                        ChangeSeed(p_Beta);
                         break;
                     case 2: // old
-                        ChangeSeed(pointer[6], pointer[7], pointer[8]);
+                        ChangeSeed(p_Old);
                         break;
                     default:
                         break;
@@ -104,19 +108,19 @@ namespace NoitaSeedChanger
             goto Restart;
         }
 
-        private static void ChangeSeed(int p1, int p2, int p3)
+        private static void ChangeSeed(params int[] pointer)
         {
-            while (Memory.Read(game.Handle, p1) != seed && Memory.Read(game.Handle, p2) != seed)
+            while (Memory.Read(game.Handle, pointer[1]) != seed && Memory.Read(game.Handle, pointer[2]) != seed)
             {
-                if (Memory.Read(game.Handle, p1) > 0 || Memory.Read(game.Handle, p2) > 0)
+                if (Memory.Read(game.Handle, pointer[1]) > 0 || Memory.Read(game.Handle, pointer[2]) > 0)
                 {
-                    Memory.Write(game.Handle, p1, seed);
-                    Memory.Write(game.Handle, p2, seed);
-                    Memory.Write(game.Handle, p3, seed);
+                    for (int i = 0; i < pointer.Length; i++)
+                    {
+                        Memory.Write(game.Handle, pointer[i], seed);
+                    }
                 }
             }
         }
-
         public static void RestartApp(object sender, EventArgs e)
         {
             Process.Start(AppDomain.CurrentDomain.BaseDirectory + "NoitaSeedChanger.exe");
