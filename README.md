@@ -8,6 +8,6 @@ Recent changes:
 * Fixed some issues with the seed list
 
 
-**Compatible with the latest beta Build (Oct 23 2019)**
+**Compatible with the latest beta Build (Oct 25 2019)**
 
 Only supports **STEAM** releases currently. GoG or itch.io releases are not supported.
