@@ -10,9 +10,9 @@ namespace NoitaSeedChanger
     {
         private static readonly string hashFile = "/_version_hash.txt";
 
-        private const string final = "c0ba23bc0c325a0dc06604f114ee8217112a23af";
-        private const string beta = "cac8fef90391e9409e8be422ec8322bb0b2cde2e";
-        private const string old = "3bbb44abfe5f4e08dcff1aba3160cd512f7e756c";
+        // release version hashes
+        private const string final = "60081be6ff40a7f54278ec5ac409904e8400a9a7";
+        private const string beta = "0c2f5a00b9bc702f55595ac425172e64e1b82273";
 
         public static void Set()
         {
@@ -26,9 +26,6 @@ namespace NoitaSeedChanger
                         break;
                     case beta:
                         Program.release = 1;
-                        break;
-                    case old:
-                        Program.release = 2;
                         break;
                     default:
                         Helper.Error("Current game version not supported!");
@@ -49,14 +46,7 @@ namespace NoitaSeedChanger
         }
         private static string GetHashFile()
         {
-            try
-            {
-                return Path.GetDirectoryName(Program.game.MainModule.FileName) + hashFile;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return Path.GetDirectoryName(Program.game.MainModule.FileName) + hashFile;
         }
 
     }
