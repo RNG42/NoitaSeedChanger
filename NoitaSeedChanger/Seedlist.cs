@@ -23,15 +23,15 @@ class Seedlist
                 if (splitString.Length > 1)
                 {
                     seedList.Add(n.ToString());
-                    splitString[0] = Helper.StringSpaces(splitString[0], 16);
-                    Console.WriteLine(" {0}" + splitString[0] + " : " + splitString[1], "[" + Helper.StringSpaces(lineCount.ToString() + "]", 4));
+                    splitString[0] = Helper.StringSpaces(splitString[0], 10);
+                    Console.WriteLine(" {0}" + splitString[0] + " : " + splitString[1], Helper.StringSpaces("[" + lineCount.ToString() + "] ", 5));
                     lineCount++;
                 }
                 else
                 {
                     seedList.Add(n.ToString());
-                    splitString[0] = Helper.StringSpaces(splitString[0], 16);
-                    Console.WriteLine( " {0}" + splitString[0] + " : ", "[" + Helper.StringSpaces(lineCount.ToString() + "]", 4));
+                    splitString[0] = Helper.StringSpaces(splitString[0], 10);
+                    Console.WriteLine(" {0}" + splitString[0] + " : ", Helper.StringSpaces("[" + lineCount.ToString() + "] ", 5));
                     lineCount++;
                 }
             }
@@ -44,7 +44,7 @@ class Seedlist
             }
         }
 
-        Console.WriteLine(" [{0}]  ENTER NEW SEED", lineCount);
+        Console.WriteLine(" [{0}] ENTER NEW SEED", lineCount);
         Console.Write(Environment.NewLine);
         Console.ForegroundColor = ConsoleColor.DarkCyan;
         Console.Write("Select Seed> ");
