@@ -36,6 +36,7 @@ namespace NoitaSeedChanger
             Console.Write(Environment.NewLine);
             Console.Write(Environment.NewLine);
         }
+
         public static string StringSpaces(string str, int length)
         {
             if (str.Length < length)
@@ -78,6 +79,7 @@ namespace NoitaSeedChanger
                 Console.WriteLine(text);
             }
         }
+
         public static void Error(string text)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -85,12 +87,21 @@ namespace NoitaSeedChanger
             Console.Write(Environment.NewLine);
             Console.ForegroundColor = ConsoleColor.DarkCyan;
         }
+
         public static uint RandomSeed()
         {
             Random r = new Random();
             int r1 = r.Next(0, int.MaxValue);
             int r2 = r.Next(0, int.MaxValue);
             return (uint)(r1 + r2) + 1;
+        }
+
+        public static void FitConsoleToContent(int lineLength)
+        {
+            if (lineLength <= Console.LargestWindowWidth)
+            {
+                Console.WindowWidth = lineLength;
+            }
         }
     }
 }
