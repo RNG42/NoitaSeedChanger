@@ -1,37 +1,29 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 
 namespace NoitaSeedChanger
 {
     class Program
     {
         private static string gameName = "noita";
-        public static Process game = null;
+        public static Process game;
+
         private static readonly string listFile = AppDomain.CurrentDomain.BaseDirectory + "seeds.txt";
 
         public static int release = 0;
         public static uint seed = 0;        // 1 to 4294967295 
         private static bool restart = false;
 
-        private static readonly int[] p_Final = new int[] {
-            0x14136D4, 0x1420798, 0x14ABCF0             // final
-        };
-        private static readonly int[] p_Beta = new int[] {
-            0x1427B74, 0x1434BC4, 0x14C0178, 0x1432458  // beta branch
-        };
-        private static readonly int[] p_Old = new int[] {
-            0x177712C, 0x1801640, 0x1777AC8             // old version
-        };
-
         static void Main(string[] args)
         {
-            // hooked Restart function to CancelKeyPress event
+            // hooked restart function to CancelKeyPress event
             Console.CancelKeyPress += new ConsoleCancelEventHandler(RestartApp);
 
             if (!File.Exists(listFile)) // check if seedlist.txt exists
             {
-                string[] lines = { "12345678:Test Seed" };
+                string[] lines = { "1234567890:Test Seed" };
                 File.Create(listFile).Close();
                 File.WriteAllLines(listFile, lines);
             }
@@ -68,7 +60,7 @@ namespace NoitaSeedChanger
             // checks if noita.exe is running
             while (game == null)
             {
-                System.Threading.Thread.Sleep(50);
+                Thread.Sleep(50);
                 if (Process.GetProcessesByName(gameName).Length > 0)
                 {
                     game = Process.GetProcessesByName(gameName)[0];
@@ -76,23 +68,23 @@ namespace NoitaSeedChanger
                     Console.Write(Environment.NewLine);
                 }
             }
+            
+            // checks current Noita release on the first run and sets 'release' variable
+            if (!restart)
+            {
+                Release.Set();
+            }
 
-            // checks current Noita release and sets 'release' variable
-            Release.Set();
-
-            // writes seed to given memory address for the correct version
+            // writes seed to given memory address for the correct release version
             if (game.WaitForInputIdle())
             {
                 switch (release)
                 {
-                    case 0: // final
-                        ChangeSeed(p_Final);
-                        break;
-                    case 1: // beta
-                        ChangeSeed(p_Beta);
-                        break;
-                    case 2: // old
-                        ChangeSeed(p_Old);
+                    case 0:
+                        Memory.ChangeSeed(game.Handle, seed, Pointer.final);
+                        break; 
+                    case 1:
+                        Memory.ChangeSeed(game.Handle, seed, Pointer.beta);
                         break;
                     default:
                         break;
@@ -107,21 +99,7 @@ namespace NoitaSeedChanger
             restart = true;
             goto Restart;
         }
-
-        private static void ChangeSeed(params int[] pointer)
-        {
-            while (Memory.Read(game.Handle, pointer[1]) != seed && Memory.Read(game.Handle, pointer[2]) != seed)
-            {
-                if (Memory.Read(game.Handle, pointer[1]) > 0 || Memory.Read(game.Handle, pointer[2]) > 0)
-                {
-                    for (int i = 0; i < pointer.Length; i++)
-                    {
-                        Memory.Write(game.Handle, pointer[i], seed);
-                    }
-                }
-            }
-        }
-        public static void RestartApp(object sender, EventArgs e)
+        private static void RestartApp(object sender, EventArgs e)
         {
             Process.Start(AppDomain.CurrentDomain.BaseDirectory + "NoitaSeedChanger.exe");
             Process.GetCurrentProcess().Kill();
