@@ -23,15 +23,16 @@ internal class Memory
         WriteProcessMemory((int)handle, address, dataBuffer, dataBuffer.Length, ref bytesWritten);
         return true;
     }
+
     public static void ChangeSeed(IntPtr game, uint seed, params int[] pointer)
     {
-        while (Memory.Read(game, pointer[0]) != seed && Memory.Read(game, pointer[1]) != seed)
+        while (Read(game, pointer[0]) != seed && Read(game, pointer[1]) != seed)
         {
-            if (Memory.Read(game, pointer[0]) > 0 || Memory.Read(game, pointer[1]) > 0)
+            if (Read(game, pointer[0]) > 0 || Read(game, pointer[1]) > 0)
             {
                 for (int i = 0; i < pointer.Length; i++)
                 {
-                    Memory.Write(game, pointer[i], seed);
+                    Write(game, pointer[i], seed);
                 }
             }
         }
