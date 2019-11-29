@@ -7,7 +7,10 @@ Recent changes:
 * Removed all .ini related stuff
 * Fixed some issues with the seed list
 
+ToDo:
 
-**Compatible with the latest beta Build (Nov 11 2019)**
+* Adding XML reader to be able to outsource release relevant data such as version hashes and memory targets
+
+**Compatible with the latest beta Build (Nov 26 2019)**
 
 Only supports **STEAM** releases currently. GoG or itch.io releases are not supported.
