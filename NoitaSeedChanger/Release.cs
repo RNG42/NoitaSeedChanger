@@ -11,8 +11,8 @@ namespace NoitaSeedChanger
         private static readonly string hashFile = "/_version_hash.txt";
 
         // release version hashes
-        private const string final = "60081be6ff40a7f54278ec5ac409904e8400a9a7";
-        private const string beta = "0c2f5a00b9bc702f55595ac425172e64e1b82273";
+        private const string final = "b71aff760755c178c9f09ebd1e61ddc5272ceb4b";
+        private const string beta = "e756391245ea6a68b1d6e39e732bf12cd459c1e9";
 
         public static void Set()
         {
