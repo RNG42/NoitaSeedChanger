@@ -10,9 +10,8 @@ namespace NoitaSeedChanger
         private static string gameName = "noita";
         public static Process game;
 
-        private static readonly string listFile = AppDomain.CurrentDomain.BaseDirectory + "seeds.txt";
+        private static readonly string listFile = AppDomain.CurrentDomain.BaseDirectory + "SeedList.txt";
 
-        public static int release = 0;
         public static uint seed = 0;        // 1 to 4294967295 
         private static bool restart = false;
 
@@ -72,23 +71,13 @@ namespace NoitaSeedChanger
             // checks current Noita release on the first run and sets 'release' variable
             if (!restart)
             {
-                Release.Set();
+                Release.Init();
             }
 
             // writes seed to given memory address for the correct release version
             if (game.WaitForInputIdle())
             {
-                switch (release)
-                {
-                    case 0:
-                        Memory.ChangeSeed(game.Handle, seed, Pointer.final);
-                        break; 
-                    case 1:
-                        Memory.ChangeSeed(game.Handle, seed, Pointer.beta);
-                        break;
-                    default:
-                        break;
-                }
+                Memory.ChangeSeed(game.Handle, seed, Release.currentTargets);
             }
             Helper.WriteLine("Seed changed to: " + seed);
             Console.WriteLine("Idle until Noita restarts.");
