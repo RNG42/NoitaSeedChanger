@@ -11,7 +11,7 @@ Recent changes:
 
 Supports **STEAM** releases by default. For GoG or itch.io releases you need to add the needed data to the VersionData.xml.
 
-To add compatibility by yourself to the VersionData.xml you need the following:
+To add compatibility by yourself to add a new <Data> tag to the VersionData.xml:
 
 The hash for your current Noita version can be found in the installation folder: "..\Noita\_version_hash.txt"
 
