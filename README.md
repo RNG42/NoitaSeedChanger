@@ -5,6 +5,7 @@ Recent changes:
 
 * Added XML reader
 * Outsourced release relevant data such as version hashes and memory targets to a XML file
+* removed outdated seeds (more will be added soon)
 * Fixed some other issues
 
 **Compatible with Build Nov 29 2019**
