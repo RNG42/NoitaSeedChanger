@@ -3,14 +3,16 @@ This tool forces the game 'Noita' to use any seed you want.
 
 Recent changes:
 
-* Added release version recognition
-* Removed all .ini related stuff
-* Fixed some issues with the seed list
+* Added XML reader
+* Outsourced release relevant data such as version hashes and memory targets to a XML file
+* Fixed some other issues
 
-ToDo:
+**Compatible with Build Nov 29 2019**
 
-* Adding XML reader to be able to outsource release relevant data such as version hashes and memory targets
+Supports **STEAM** releases by default. For GoG or itch.io releases you need to add the needed data to the VersionData.xml.
 
-**Compatible with the latest beta Build (Nov 26 2019)**
+To add compatibility by yourself to the VersionData.xml you need the following:
 
-Only supports **STEAM** releases currently. GoG or itch.io releases are not supported.
+The hash for your current Noita version can be found in the installation folder: "..\Noita\_version_hash.txt"
+
+You can get the memory targets by searching the current seed your game is showing in the main menu with 'CheatEngine'. There should be at least two entries with green highlighted memory addresses.
