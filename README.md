@@ -10,7 +10,7 @@ Recent changes:
 
 Planned:
 
-* Auto update xml on app launch
+* Auto update ReleaseData.xml on app launch
 
 
 **Compatible with Build Dec 4 2019**
