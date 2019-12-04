@@ -13,7 +13,7 @@ Planned:
 * Auto update xml on app launch
 
 
-**Compatible with Build Nov 29 2019**
+**Compatible with Build Dec 4 2019**
 
 Supports **STEAM** releases by default. For GoG or itch.io releases you need to add the needed data to the VersionData.xml.
 
