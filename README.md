@@ -15,7 +15,7 @@ Planned:
 
 **Compatible with Build Dec 4 2019**
 
-Supports **STEAM** releases by default. For GoG or itch.io releases you need to add the needed data to the VersionData.xml.
+Supports **STEAM** releases by default. For GoG or itch.io releases you need to add the needed data to the ReleaseData.xml.
 
 To add compatibility by yourself you need to add a new 'Data' tag to the ReleaseData.xml:
 
