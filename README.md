@@ -1,16 +1,17 @@
 # NoitaSeedChanger
 This tool forces the game 'Noita' to use any seed you want.
 
-Recent changes:
+**Recent changes:**
 
 * Added XML reader
 * Outsourced release relevant data such as version hashes and memory targets to a XML file
 * removed outdated seeds (more will be added soon)
 * Fixed some other issues
 
-Planned:
+**Planned:**
 
-* Auto update ReleaseData.xml on app launch
+* Autoupdate ReleaseData.xml on app launch
+
 
 
 **Installation:**
