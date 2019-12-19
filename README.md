@@ -35,4 +35,4 @@ The memory addresses by searching the current seed your game is showing in the m
 There should be at least two entries with green highlighted memory addresses.
 
 
-**Compatible with the latest Build (Dec 17 2019) - STEAM**
+**Compatible with the latest Build (Dec 19 2019) - STEAM**
