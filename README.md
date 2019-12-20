@@ -22,7 +22,8 @@ Unzip the files to a separate folder and start NoitaSeedChanger.exe. The files c
 
 Type a number from the square brackets to select a seed or enter a new one (1 to 4294967295), let the tool run in the background and start a completely new game. The seed will be changed automatically after the game restarts. If you want to set a different seed, you need to restart NoitaSeedChanger. You can do this easily by pressing CTRL+C while the window is focused.
 
-You can add a seed + corresponding description to the SeedList.txt on a new line by following the format:SEED:DESCRIPTION - where the seed is seperated from the description by a colon (important!).
+You can add a seed + corresponding description to the SeedList.txt on a new line by following the format:
+SEED:DESCRIPTION - where the seed is seperated from the description by a colon (important!).
 
 **Compatibility:**
 
