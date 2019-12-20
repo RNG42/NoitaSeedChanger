@@ -28,7 +28,7 @@ You can add a seed + corresponding description to the SeedList.txt on a new line
 
 Note that only STEAM releases are supported by default. For GoG or itch.io releases you can add compatibility by adding a new Data tag to the ReleaseData.xml including the version hash and memory addresses.
 
-The hash for your current Noita version can be found in the installation folder: '\..\Noita\_version_hash.txt'
+The hash for your current Noita version can be found in the installation folder: '\..\Noita\__version_hash.txt'
 
 The memory addresses by searching the current seed your game is showing in the main menu with 'CheatEngine' from cheatengine.org
 
