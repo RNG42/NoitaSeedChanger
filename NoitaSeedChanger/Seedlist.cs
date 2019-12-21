@@ -44,7 +44,7 @@ class Seedlist
             }
         }
 
-        Console.WriteLine(" [{0}] ENTER NEW SEED", lineCount);
+        Console.WriteLine(" [{0}]  ENTER NEW SEED", lineCount);
         Console.Write(Environment.NewLine);
         Console.ForegroundColor = ConsoleColor.DarkCyan;
         Console.Write("Select Seed> ");
