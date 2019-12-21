@@ -17,17 +17,26 @@ namespace NoitaSeedChanger
 
         public static void Init()
         {
-            GetCurrentVersionHash();
-            ReadXML("VersionData.xml");
-            GetTargetList(currentHash);
+            GetCurrentHash();
+            ReadXML("ReleaseData.xml");
+            GetCurrentTargets();
         }
 
         private static void ReadXML(string fileName)   // Reads XML and fills data dictionary
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(fileName);
+            try
+            {
+                doc.Load(fileName);
+            }
+            catch (Exception e)
+            {
+                Helper.Error(e.Message);
+                Thread.Sleep(10000);
+                throw;
+            }
 
-            XmlNodeList Nodes = doc.DocumentElement.SelectNodes("/Version/Data");
+            XmlNodeList Nodes = doc.DocumentElement.SelectNodes("/Release/Data");
 
             foreach (XmlNode node in Nodes)
             {
@@ -49,7 +58,7 @@ namespace NoitaSeedChanger
             }
         }
 
-        public static void GetTargetList(string hash)
+        public static void GetCurrentTargets()
         {
             List<IntPtr> targetList = new List<IntPtr>();
 
@@ -66,24 +75,23 @@ namespace NoitaSeedChanger
             currentTargets = targetList;
         }
 
-        public static void GetCurrentVersionHash()
+        public static void GetCurrentHash()
         {
             try
             {
-                string hash = File.ReadAllLines(GetHashFile(), Encoding.UTF8)[0];
+                string hash = File.ReadAllLines(GetHashFilePath(), Encoding.UTF8)[0];
                 currentHash = hash;
             }
             catch (Exception e)
             {
                 Helper.Error(e.Message);
-                Helper.Error("Closing NSC in 10 seconds.");
                 Thread.Sleep(10000);
                 throw;
             }
 
         }
 
-        private static string GetHashFile()
+        private static string GetHashFilePath()
         {
             return Path.GetDirectoryName(Program.game.MainModule.FileName) + "/_version_hash.txt";
         }
