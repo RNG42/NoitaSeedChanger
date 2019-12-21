@@ -7,18 +7,19 @@ namespace NoitaSeedChanger
 {
     class Program
     {
-        private static string gameName = "noita";
+        private static readonly string gameName = "noita";
         public static Process game;
 
         private static readonly string listFile = AppDomain.CurrentDomain.BaseDirectory + "SeedList.txt";
 
         public static uint seed = 0;        // 1 to 4294967295 
-        private static bool restart = false;
+        private static bool repeat = false;
 
         static void Main(string[] args)
         {
             // hooked restart function to CancelKeyPress event
             Console.CancelKeyPress += new ConsoleCancelEventHandler(RestartApp);
+            Console.Title = "NoitaSeedChanger";
 
             if (!File.Exists(listFile)) // check if seedlist.txt exists
             {
@@ -45,48 +46,69 @@ namespace NoitaSeedChanger
                 Helper.WriteLine("Generated random seed: " + seed);
                 Console.Write(Environment.NewLine);
             }
+            Console.Title = "NoitaSeedChanger - Seed: " + seed;
 
-            Restart:
-
-            if (restart)
+            while (true)
             {
-                Helper.DrawBanner();
-            }
-
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("Waiting for noita.exe");
-
-            // checks if noita.exe is running
-            while (game == null)
-            {
-                Thread.Sleep(50);
-                if (Process.GetProcessesByName(gameName).Length > 0)
+                if (repeat)
                 {
-                    game = Process.GetProcessesByName(gameName)[0];
-                    Console.WriteLine("noita.exe is running");
-                    Console.Write(Environment.NewLine);
+                    Helper.DrawBanner();
                 }
-            }
-            
-            // checks current Noita release on the first run and sets 'release' variable
-            if (!restart)
-            {
-                Release.Init();
-            }
 
-            // writes seed to given memory address for the correct release version
-            if (game.WaitForInputIdle())
-            {
-                Memory.ChangeSeed(game.Handle, seed, Release.currentTargets);
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("Waiting for noita.exe");
+
+                // checks if noita.exe is running
+                while (game == null)
+                {
+                    Thread.Sleep(100);
+                    if (Process.GetProcessesByName(gameName).Length > 0)
+                    {
+                        game = Process.GetProcessesByName(gameName)[0];
+                        Console.WriteLine("noita.exe is running");
+                        Console.Write(Environment.NewLine);
+                    }
+                }
+
+                // checks current Noita release on the first run and gets memory targets
+                if (!repeat)
+                {
+                    Release.Init();
+                }
+
+                // writes seed to given memory address for the correct release version
+                if (game.WaitForInputIdle())
+                {
+                    try
+                    {
+                        if (Release.currentTargets.Count > 0)
+                        {
+                            Memory.ChangeSeed(game.Handle, seed, Release.currentTargets);
+                        }
+                        else
+                        {
+                            Helper.Error("NSC seem to be outdated. Check for the latest release or read the compatibility section in the Readme.txt");
+                            Thread.Sleep(10000);
+                            Process.GetCurrentProcess().Kill();
+                        }
+
+                    }
+                    catch (Exception e)
+                    {
+                        Helper.Error(e.Message);
+                        Thread.Sleep(10000);
+                        throw;
+                    }
+
+                }
+                Helper.WriteLine("Seed changed to: " + seed);
+                Console.WriteLine("Idle until Noita restarts.");
+
+                game.WaitForExit();
+                game = null;
+
+                repeat = true;
             }
-            Helper.WriteLine("Seed changed to: " + seed);
-            Console.WriteLine("Idle until Noita restarts.");
-
-            game.WaitForExit();
-            game = null;
-
-            restart = true;
-            goto Restart;
         }
         private static void RestartApp(object sender, EventArgs e)
         {
