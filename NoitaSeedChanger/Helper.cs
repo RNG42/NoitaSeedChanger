@@ -51,7 +51,8 @@ namespace NoitaSeedChanger
             }
             return str;
         }
-        public static void WriteLine(string text)
+
+        public static void WriteLine(string text)   // highlights numbers
         {
             if (text.Any(char.IsDigit))
             {
@@ -91,17 +92,7 @@ namespace NoitaSeedChanger
         public static uint RandomSeed()
         {
             Random r = new Random();
-            int r1 = r.Next(0, int.MaxValue);
-            int r2 = r.Next(0, int.MaxValue);
-            return (uint)(r1 + r2) + 1;
-        }
-
-        public static void FitConsoleToContent(int lineLength)
-        {
-            if (lineLength <= Console.LargestWindowWidth)
-            {
-                Console.WindowWidth = lineLength;
-            }
+            return (uint)(r.Next(0, int.MaxValue) + r.Next(0, int.MaxValue)) + 1;
         }
     }
 }
