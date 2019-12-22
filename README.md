@@ -37,4 +37,5 @@ There should be at least two entries with green highlighted memory addresses.
 
 
 **DOWNLOAD:** [https://github.com/RNG42/NoitaSeedChanger/releases/latest](https://github.com/RNG42/NoitaSeedChanger/releases/latest)
+
 **Compatible with the latest Build (Dec 19 2019) - STEAM**
