@@ -3,7 +3,7 @@ This tool forces the game 'Noita' to use any seed you want.
 
 **DOWNLOAD:** [https://github.com/RNG42/NoitaSeedChanger/releases/latest](https://github.com/RNG42/NoitaSeedChanger/releases/latest)
 
-**Compatible with the latest Build (Dec 19 2019) - STEAM**
+Compatible with the latest Build (Dec 19 2019) - STEAM
 
 **Recent changes:**
 
