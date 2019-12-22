@@ -1,6 +1,10 @@
 # NoitaSeedChanger
 This tool forces the game 'Noita' to use any seed you want.
 
+**DOWNLOAD:** [https://github.com/RNG42/NoitaSeedChanger/releases/latest](https://github.com/RNG42/NoitaSeedChanger/releases/latest)
+
+**Compatible with the latest Build (Dec 19 2019) - STEAM**
+
 **Recent changes:**
 
 * Added XML reader
@@ -34,8 +38,3 @@ The hash for your current Noita version can be found in the installation folder:
 The memory addresses by searching the current seed your game is showing in the main menu with 'CheatEngine' from cheatengine.org
 
 There should be at least two entries with green highlighted memory addresses.
-
-
-**DOWNLOAD:** [https://github.com/RNG42/NoitaSeedChanger/releases/latest](https://github.com/RNG42/NoitaSeedChanger/releases/latest)
-
-**Compatible with the latest Build (Dec 19 2019) - STEAM**
