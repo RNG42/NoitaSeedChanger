@@ -12,12 +12,6 @@ Compatible with the latest Build (Dec 20 2019) - STEAM
 * removed outdated seeds (more will be added soon)
 * Fixed some other issues
 
-**Planned:**
-
-* Autoupdate ReleaseData.xml on app launch
-
-
-
 **Installation:**
 
 Unzip the files to a separate folder and start NoitaSeedChanger.exe. The files can be saved anywhere you like and do not need to be copied into Noita's installation folder.
