@@ -1,7 +1,10 @@
 1271447141:Skateboard at mine entrance.
-691229343:Easy Alchemic Precursor - Soil/Water/Mud.
-213135177:Easy Lively Concoction - Soil/Water/Mud.
-11811237:Easy Everything - Soil/Water/Mud.
-968748126:Bouncing burst minigun near entrance to the right.
-1810499801:Alchemy station underneath spawn.
-495867885:Tentacle spell in a chest below water tank in the mines.
+691229343:Easy Alchemic Precursor - Soil/Water/Mud
+213135177:Easy Lively Concoction - Soil/Water/Mud
+11811237:Easy Everything - Soil/Water/Mud
+968748126:Bouncing burst minigun near entrance to the right
+1810499801:Alchemy station underneath spawn
+495867885:Tentacle spell in a chest below water tank in the mines
+128425036:Ambrosia flask + Nuke spell near mine entrance
+1506924087:Glas cannon perk in first holy mountain
+1728317008:Circle of Vigour in a Shop in the collapsed mines
