@@ -17,9 +17,11 @@ namespace NoitaSeedChanger
 
         static void Main(string[] args)
         {
+            Console.Title = "NoitaSeedChanger";
+
             // hooked restart function to CancelKeyPress event
             Console.CancelKeyPress += new ConsoleCancelEventHandler(RestartApp);
-            Console.Title = "NoitaSeedChanger";
+
 
             if (!File.Exists(listFile)) // check if seedlist.txt exists
             {
