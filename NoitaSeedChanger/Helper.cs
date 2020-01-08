@@ -9,7 +9,7 @@ namespace NoitaSeedChanger
         public static void DrawBanner()
         {
             Console.Clear();
-            ConsoleColor[] gradient = new ConsoleColor[5]
+            ConsoleColor[] gradient =
             {
                 ConsoleColor.Cyan,
                 ConsoleColor.DarkCyan,
@@ -18,7 +18,7 @@ namespace NoitaSeedChanger
                 ConsoleColor.DarkBlue
             };
 
-            string[] banner = new string[5]
+            string[] banner =
             {
                 "     _______         __ __              _______                 __      ______ __                                 ",
                 "    |    |  |.-----.|__|  |_.---.-.    |     __|.-----.-----.--|  |    |      |  |--.---.-.-----.-----.-----.----.",
@@ -33,7 +33,6 @@ namespace NoitaSeedChanger
                 Console.WriteLine(banner[i]);
             }
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write(Environment.NewLine);
             Console.Write(Environment.NewLine);
         }
 
