@@ -2,21 +2,6 @@
 <!-- Memory targets by searching the current seed your game is showing in the main menu with 'CheatEngine'. 			-->
 <!-- The 'info' attribute within the 'Data' tag is not used and just serves as description								-->
 <Release>
-	<Data info="Nov 29 2019">
-		<Hash>5e204941cfd250e90f2f5dff62badcedec1ff698</Hash>
-		<Target>146635C</Target>
-		<Target>14F2140</Target>
-	</Data>
-	<Data info="Dec 4 2019">
-		<Hash>73c4bfaea1badc57662e6e2ac4939e653f6acec7</Hash>
-		<Target>146B404</Target>
-		<Target>14F7190</Target>
-	</Data>
-	<Data info="Dec 13 2019">
-		<Hash>d1063518fe9fd98478b0613d18040c8a41dd39d0</Hash>
-		<Target>146B2E4</Target>
-		<Target>14F70C0</Target>
-	</Data>
 	<Data info="Dec 17 2019">
 		<Hash>57cbb2806e0f6c7704779045dab30819bae9c1c0</Hash>
 		<Target>1471514</Target>
@@ -43,5 +28,10 @@
 		<Target>0146C9EC</Target>
 		<Target>01479C5C</Target>
 		<Target>01505210</Target>
+	</Data>
+	<Data info="Jan 22 2020">
+		<Hash>e4a1cd69ec46ae6ba1737927b328264c88900879</Hash>
+		<Target>01491C34</Target>
+		<Target>0151EA88</Target>
 	</Data>
 </Release>
