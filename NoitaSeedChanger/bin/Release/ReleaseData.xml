@@ -34,4 +34,9 @@
 		<Target>01491C34</Target>
 		<Target>0151EA88</Target>
 	</Data>
+	<Data info="Jan 23 2020">
+		<Hash>c8c4bef9cbd40e34eba0a5ca619c2386ac176555</Hash>
+		<Target>01490C24</Target>
+		<Target>0151DA88</Target>
+	</Data>
 </Release>
