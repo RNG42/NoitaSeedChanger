@@ -22,9 +22,19 @@
 		<Target>014AC534</Target>
 		<Target>0153B3F0</Target>
 	</Data>
-	<Data info="Mar 20 2020">
+	<Data info="Mar 20 2020 Beta">
 		<Hash>54d23ec839ed81f5e8242045eab7199f9cb0a16d</Hash>
 		<Target>014B0B40</Target>
 		<Target>0153F7F0</Target>
+	</Data>
+	<Data info="Mar 20 2020">
+		<Hash>da89df61fa3534c7f1f41e4aafd8577bf2265574</Hash>
+		<Target>014AEAA4</Target>
+		<Target>0153D7F0</Target>
+	</Data>
+	<Data info="Apr 28 2020">
+		<Hash>4a00b88b855c91260d8b6c3c6b8b27592b84a71a</Hash>
+		<Target>015656B8</Target>
+		<Target>015F6D08</Target>
 	</Data>
 </Release>
