@@ -5,7 +5,7 @@ This tool forces the game 'Noita' to use any seed you want.
 
 Compatible with the latest Build (Apr 28 2020) - STEAM
 
-Beta versions are no longer supported, due to frequent updates. You are still able to add the needed data yourself if needed. See 'Compatibility' section below.
+Beta versions are no longer supported, due to the frequency of updates. You are still able to add the needed data yourself if you want. See the 'Compatibility' section below.
 
 **Recent changes:**
 
