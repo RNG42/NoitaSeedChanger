@@ -1,13 +1,15 @@
 # NoitaSeedChanger
 This tool forces the game 'Noita' to use any seed you want.
 
+
+
+**Since the latest Noita update, changing seeds with NSC only work if you restart Noita completely. The code have to be rewritten to work properly with the latest versions. Since there are much simpler alternatives, which work without updating an external tool, NSC can be considered as abandoned. Here is an Alternative to change Seeds for future use: https://modworkshop.net/mod/25898**
+
+
+
 **DOWNLOAD:** [https://github.com/RNG42/NoitaSeedChanger/releases/latest](https://github.com/RNG42/NoitaSeedChanger/releases/latest)
 
 Compatible with the latest Build ( May 20 2020) - STEAM
-
-
-**Since the latest Noita update, changing seeds with NSC only work if you restart Noita. The code have to be rewritten to work properly with the latest version. I'll look into it when i have the time to do so.**
-
 
 Beta versions are no longer supported, due to the frequency of updates. You are still able to add the needed data yourself if you want. See the 'Compatibility' section below.
 
